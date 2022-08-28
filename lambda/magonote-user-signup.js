@@ -40,7 +40,9 @@ exports.handler = (event, context, callback) => {
     } else {
       //TODO: 登録に成功した場合の処理を記述
       response.body = JSON.stringify({
-        message: "登録成功しました"
+        message: "登録成功しました",
+        email: body.email,
+        name: body.name,
       })
       callback(null, response);
       return;

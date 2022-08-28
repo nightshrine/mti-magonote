@@ -91,7 +91,7 @@ export default {
       axios.post(baseUrl + "/signup", requestBody)
         .then((response) => {
           window.localStorage.setItem('token', response.data.token);
-          window.localStorage.setItem('name', this.user.name);
+          window.localStorage.setItem('name', response.data.name);
           console.log(window.localStorage.getItem('token'))
           this.$router.push({ name: 'Home' });
           console.log(response.data);

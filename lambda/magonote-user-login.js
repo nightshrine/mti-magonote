@@ -48,6 +48,8 @@ exports.handler = (event, context, callback) => {
     //TODO: 認証が成功した場合のレスポンスボディとコールバックを記述
     response.body = JSON.stringify({
       token: "mtiToken",
+      email: data.Items[0].email,
+      name: data.Items[0].name,
     });
     callback(null, response);
     return;

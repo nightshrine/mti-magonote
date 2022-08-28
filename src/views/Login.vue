@@ -78,8 +78,11 @@ export default {
         .then((response) => {
           // 成功したときの処理はここに記述する
           window.localStorage.setItem('token', response.data.token);
-          window.localStorage.setItem('name', this.user.name);
-          console.log(window.localStorage.getItem('token'))
+          window.localStorage.setItem('name', response.data.name);
+          window.localStorage.setItem('email', response.data.email);
+          console.log(window.localStorage.getItem('token'));
+          console.log(window.localStorage.getItem('name'));
+          console.log(window.localStorage.getItem('email'));
           this.$router.push({ name: 'Home' });
         })
         .catch(() => {
