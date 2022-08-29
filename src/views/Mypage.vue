@@ -80,6 +80,7 @@ export default {
       const requestBody = {
         id: this.user.id,
         name: this.user.name,
+        password: this.user.password,
         height: this.user.height,
         weight: this.user.weight,
         level: this.user.level,
