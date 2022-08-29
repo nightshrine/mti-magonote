@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-body">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui teal image header">
@@ -93,6 +93,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 /* このコンポーネントだけに適用するCSSは */
 /* ここに記述する */

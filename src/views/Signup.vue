@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-body">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui teal image header">
@@ -33,7 +33,7 @@
                 <input type="password" name="confirm_password" placeholder="Confirm Password" v-model="user.confirm_password">
               </div>
             </div>
-            <button class="ui fluid large teal submit button" type="submit">Sign Up</button>
+            <button class="ui fluid large submit button" type="submit">新規登録</button>
           </div>
 
           <div class="ui error message"></div>
@@ -41,7 +41,7 @@
         </form>
 
         <div class="ui message">
-          Already have an account? <a @click="toLogin()">Login</a>
+          既にアカウントをお持ちですか? <a @click="toLogin()">ログイン</a>
         </div>
       </div>
     </div>
@@ -112,6 +112,31 @@ export default {
 <style scoped>
 /* このコンポーネントだけに適用するCSSは */
 /* ここに記述する */
+
+.login-body {
+  background-color: #3CB371;
+  height: 100vh;
+}
+
+.button {
+  background-color: #3CB371;
+  box-shadow: 0 0 0 0 rgb(34 36 38 / 15%) inset;
+  color: #FFF;
+  text-shadow: none;
+  background-image: none;
+}
+
+.button:hover {
+  background-color: #33a667;
+  color: #FFF;
+  text-shadow: none;
+}
+
+.button:focus {
+  background-color: #289f5e;
+  color: #FFF;
+  text-shadow: none;
+}
 
 .column {
   max-width: 400px;
