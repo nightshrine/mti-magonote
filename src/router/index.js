@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Mypage.vue'
 import Signup from '../views/Signup.vue'
+import Shop from '../views/Shop.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     name: 'Mypage',
     component: Profile
   },
+  {
+    path: '/Shop',
+    name: 'Shop',
+    component: Shop
+  }
 ]
 
 const router = new VueRouter({

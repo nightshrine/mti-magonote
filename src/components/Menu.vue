@@ -3,6 +3,7 @@
     <div class="ui inverted secondary pointing menu">
       <a class=item @click="switchPage('Home')" v-bind:class="{ active: current == 'Home' }">Home</a>
       <a class=item @click="switchPage('Mypage')" v-bind:class="{ active: current == 'Mypage' }">Mypage</a>
+      <a class=item @click="switchPage('Shop')" v-bind:class="{ active: current == 'Shop' }">Shop</a>
       <div class="right menu">
         <button class="item" @click="logout">Logout</button>
       </div>

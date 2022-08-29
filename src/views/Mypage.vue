@@ -35,9 +35,44 @@
               <input type="text" v-model="user.level" />
             </div>
           </div>
-          <button class="ui button" type="submit" style="width: 100%">更新</button>
+          <button class="ui button" type="submit" style="width: 100%; background-color:black; color: white">更新</button>
         </form>
       </div>
+      <div class="ui segment">
+        <form class="ui form" @submit.prevent="postRecords">
+          <div class="field">
+            <div class="inline fields">
+              <label style="white-space: nowrap;">活動記録</label>
+              <textarea v-model="text" style="height: 100px"></textarea>
+            </div>
+          </div>
+          <button class="ui button" type="submit" style="width: 100%; background-color:black; color: white">記録</button>
+        </form>
+      </div>
+      <div dlass="content" style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      ">
+        <div class="ui segment" style="
+        display: flex;
+        width: 20%;
+        justify-content: center;
+        align-items: center;
+      ">
+        <h2>~活動記録~</h2>
+        </div>
+      </div>
+      <template v-for="(record, index) in sortRecords">
+        <div class="ui segment" :key="index">
+          <div class="inline fields">
+            <div class="field">
+              <label style="white-space: nowrap; font-size: 25px">{{ record.type }}: </label>
+              <label style="font-size: 20px">{{ record.text }}</label>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -62,6 +97,8 @@ export default {
         weight: '',
         level: null,
       },
+      records: [],
+      text: '',
       err: null
     };
   },
@@ -87,20 +124,47 @@ export default {
       };
       axios.put(baseUrl + "/user", requestBody)
         .then(() => {
-          this.$router.push({name: "Home"});
+          this.$router.push({ name: "Home" });
         }).catch(err => {
           console.log(err);
         }
-      );
+        );
+    },
+    postRecords() {
+      if (!this.text) {
+        this.err = "活動記録を入力してください";
+        return;
+      }
+      const requestBody = {
+        id: this.user.id,
+        text: this.text,
+        type: "text",
+      };
+      axios.post(baseUrl + "/records", requestBody)
+        .then(() => {
+          this.text = "";
+          window.location.reload();
+        }).catch(err => {
+          console.log(err);
+        }
+        );
+    },
+  },
+  computed: {
+    sortRecords() {
+      let results = this.records.filter(record => {
+        return record.id == this.user.id;
+      });
+      return results;
     }
   },
-  created() {
+  async created() {
     if (!window.localStorage.getItem("id")) {
       this.$router.push({ name: "Login" });
     }
     this.user.id = localStorage.getItem('id');
     this.user.name = localStorage.getItem('name');
-    axios.get(baseUrl + "/user" + "?id=" + this.user.id)
+    await axios.get(baseUrl + "/user" + "?id=" + this.user.id)
       .then(res => {
         this.user.id = res.data.id;
         this.user.name = res.data.name;
@@ -112,6 +176,13 @@ export default {
       .catch(err => {
         console.log(err);
       })
+    await axios.get(baseUrl + "/records")
+      .then(res => {
+        this.records = res.data;
+      }).catch(err => {
+        console.log(err);
+      }
+      );
   }
 }
 </script>
