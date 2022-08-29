@@ -17,10 +17,10 @@ exports.handler = (event, context, callback) => {
   const param = {
     TableName: tableName,
     //キー、インデックスによる検索の定義
-    KeyConditionExpression: "email = :email",
+    KeyConditionExpression: "id = :id",
     //検索値のプレースホルダの定義
     ExpressionAttributeValues: {
-      ":email": body.email,
+      ":id": body.id,
     },
   };
 
@@ -47,8 +47,7 @@ exports.handler = (event, context, callback) => {
 
     //TODO: 認証が成功した場合のレスポンスボディとコールバックを記述
     response.body = JSON.stringify({
-      token: "mtiToken",
-      email: data.Items[0].email,
+      id: data.Items[0].id,
       name: data.Items[0].name,
     });
     callback(null, response);

@@ -4,15 +4,15 @@
     <div class="ui main container">
       <!-- 基本的なコンテンツはここに記載する -->
       <div class="ui segment">
-        {{ name }}
+        {{ movies }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-//import { baseUrl } from '@/assets/config.js';
-//import axios from "axios";
+import { baseUrl } from '@/assets/config.js';
+import axios from "axios";
 import Menu from '@/components/Menu.vue'
 // 必要なものはここでインポートする
 // @は/srcと同じ意味です
@@ -27,42 +27,48 @@ export default {
   data() {
     // Vue.jsで使う変数はここに記述する
     return {
-      post: {
-        text: null,
-        category: null,
-        err: null
+      user: {
+        id: '',
+        name: '',
+        height: '',
+        weight: '',
+        level: null,
       },
-      search: {
-        username: null,
-        category: null,
-        start: null,
-        end: null,
-        err: null,
-      },
-      query: {
-        start: null,
-        end: null
-      },
-      articles: [],
-      name: null
+      movies: [],
     };
   },
   computed: {
   // 計算した結果を変数として利用したいときはここに記述する
-    sortedArticles() {
-      let result = this.articles;
-      // if(this.query.start && this.query.end) {
-      //   serachArticle();
-      // }
-      return result;
-    },
   },
-  created() {
+  async created() {
     // Vue.jsの読み込みが完了したときに実行する処理はここに記述する
-    this.name = localStorage.getItem("name");
+    this.user.id = localStorage.getItem("id");
     // apiからarticleを取得する
-    if (!window.localStorage.getItem("name")) {
+    if (!window.localStorage.getItem("id")) {
       this.$router.push({name: "Login"});
+    }
+    await axios.get(baseUrl + "/movies")
+      .then(res =>{
+        this.movies = res.data;
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+    await axios.get(baseUrl + "/user" + "?id=" + this.user.id)
+      .then(res =>{
+        this.user.id = res.data.id;
+        this.user.name = res.data.name;
+        this.user.height = res.data.height;
+        this.user.weight = res.data.weight;
+        this.user.level = res.data.level;
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+
+    if(this.user.level != null){
+      let result = this.movies.filter(movie => movie.level == this.user.level);
+      this.movies = result;
     }
   },
   methods: {

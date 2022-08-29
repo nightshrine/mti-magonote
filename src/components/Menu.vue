@@ -27,8 +27,8 @@ export default {
     },
     logout() {
       // localStorageと直接書くとグローバル変数使用の警告が出るため、windowから書いています。
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('userId');
+      window.localStorage.removeItem('Id');
+      window.localStorage.removeItem('name');
       this.$router.push({ name: 'Login' });
     }
   },

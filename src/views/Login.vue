@@ -11,8 +11,8 @@
           <div class="ui stacked segment">
             <div class="field">
               <div class="ui left icon input">
-                <i class="envelope outline icon"></i>
-                <input type="text" name="email" placeholder="E-mail address" v-model="user.email">
+                <i class="user icon"></i>
+                <input type="text" name="id" placeholder="id" v-model="user.id">
               </div>
             </div>
             <div class="field">
@@ -51,7 +51,7 @@ export default {
     // Vue.jsで使う変数はここに記述する
     return {
       user: {
-        email: '',
+        id: '',
         password: ''
       },
       err: null
@@ -63,26 +63,22 @@ export default {
   methods: {
     // Vue.jsで使う関数はここで記述する
     submit() {
-      if (!this.user.email) {
-        this.err = 'メールアドレスを入力してください';
+      if (!this.user.id) {
+        this.err = 'idを入力してください';
       }
       else if (!this.user.password) {
         this.err = 'パスワードを入力してください';
       }
       const requestBody = {
-        email: this.user.email,
+        id: this.user.id,
         password: this.user.password,
       }
       console.log(requestBody);
       axios.post(baseUrl + "/login", requestBody)
         .then((response) => {
           // 成功したときの処理はここに記述する
-          window.localStorage.setItem('token', response.data.token);
-          window.localStorage.setItem('name', response.data.name);
-          window.localStorage.setItem('email', response.data.email);
-          console.log(window.localStorage.getItem('token'));
-          console.log(window.localStorage.getItem('name'));
-          console.log(window.localStorage.getItem('email'));
+          window.localStorage.setItem('id', response.data.id);
+          window.localStorage.setItem('name', response.data.name);        
           this.$router.push({ name: 'Home' });
         })
         .catch(() => {

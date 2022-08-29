@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
-const tableName = "magonote_users";
+const tableName = "magnote_users";
 
 exports.handler = (event, context, callback) => {
   const response = {
@@ -12,19 +12,18 @@ exports.handler = (event, context, callback) => {
   };
 
   const body = JSON.parse(event.body);
+  const id = body.id;
 
-  //TODO: DBに登録するための情報をparamオブジェクトとして宣言する（中身を記述）
+  //TODO: 削除対象のテーブル名と削除したいデータのkeyをparamに設定
   const param = {
-    TableName: tableName,
-    Item: {
-      id: body.id,
-      name: body.name,
-      password: body.password,
+    "TableName" : tableName,
+    "Key" : {
+      id
     }
   };
 
-  //dynamo.put()でDBにデータを登録
-  dynamo.put(param, function (err, data) {
+  //dynamo.delete()を用いてデータを削除
+  dynamo.delete(param, function (err, data) {
     if (err) {
       console.log(err);
       response.statusCode = 500;
@@ -35,11 +34,9 @@ exports.handler = (event, context, callback) => {
       callback(null, response);
       return;
     } else {
-      //TODO: 登録に成功した場合の処理を記述
+      //TODO: 削除に成功した場合の処理を記述
       response.body = JSON.stringify({
-        message: "登録成功しました",
-        id: body.id,
-        name: body.name,
+        message: "削除成功しました"
       })
       callback(null, response);
       return;

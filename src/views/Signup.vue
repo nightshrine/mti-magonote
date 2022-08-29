@@ -11,8 +11,8 @@
           <div class="ui stacked segment">
             <div class="field">
               <div class="ui left icon input">
-                <i class="envelope outline icon"></i>
-                <input type="text" name="email" placeholder="E-mail address" v-model="user.email">
+                <i class="user icon"></i>
+                <input type="text" name="id" placeholder="id" v-model="user.id">
               </div>
             </div>
             <div class="field">
@@ -63,7 +63,7 @@ export default {
     // Vue.jsで使う変数はここに記述する
     return {
       user: {
-        email: '',
+        id: '',
         name: '',
         password: '',
         confirm_password: ''
@@ -77,29 +77,31 @@ export default {
   methods: {
     // Vue.jsで使う関数はここで記述する
     submit() {
-      if (!this.user.nickname) {
-        this.err = "ニックネームを入力してください";
-      } else if (!this.user.age) {
-        this.err = "年齢を入力してください";
-      }
-
-      const requestBody = {
-        email : this.user.email,
-        name : this.user.name,
-        password : this.user.password,
-      }
-      axios.post(baseUrl + "/signup", requestBody)
-        .then((response) => {
-          window.localStorage.setItem('token', response.data.token);
-          window.localStorage.setItem('name', response.data.name);
-          console.log(window.localStorage.getItem('token'))
-          this.$router.push({ name: 'Home' });
-          console.log(response.data);
-        })
-        .catch(() => {
-          this.err = "予期せぬエラーが発生しました";
+      if (!this.user.id) {
+        this.err = "idを入力してください";
+      } else if (!this.user.name) {
+        this.err = "名前を入力してください";
+      } else if (!this.user.password) {
+        this.err = "パスワードを入力してください";
+      } else if (this.user.password !== this.user.confirm_password) {
+        this.err = "パスワードが一致しません";
+      } else {
+        const requestBody = {
+          id : this.user.id,
+          name : this.user.name,
+          password : this.user.password,
         }
-        );
+        axios.post(baseUrl + "/signup", requestBody)
+          .then((response) => {
+            window.localStorage.setItem('id', response.data.id);
+            window.localStorage.setItem('name', response.data.name);
+            this.$router.push({ name: 'Home' });
+          })
+          .catch(() => {
+            this.err = "予期せぬエラーが発生しました";
+          }
+          );
+      }
     },
     toLogin() {
       this.$router.push({ name: 'Login' });

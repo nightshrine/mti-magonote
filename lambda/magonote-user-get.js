@@ -3,6 +3,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 const tableName = "magonote_users";
 
 exports.handler = (event, context, callback) => {
+  //レスポンスの雛形
   const response = {
     statusCode: 200,
     headers: {
@@ -11,20 +12,18 @@ exports.handler = (event, context, callback) => {
     body: JSON.stringify({ message: "" }),
   };
 
-  const body = JSON.parse(event.body);
+  const id = event.queryStringParameters.id; //見たいユーザのid
 
-  //TODO: DBに登録するための情報をparamオブジェクトとして宣言する（中身を記述）
+  //TODO: 取得対象のテーブル名と検索に使うキーをparamに宣言
   const param = {
-    TableName: tableName,
-    Item: {
-      id: body.id,
-      name: body.name,
-      password: body.password,
+    "TableName" : tableName,
+    "Key" : {
+      id
     }
   };
 
-  //dynamo.put()でDBにデータを登録
-  dynamo.put(param, function (err, data) {
+  //dynamo.get()でDBからデータを取得
+  dynamo.get(param, function (err, data) {
     if (err) {
       console.log(err);
       response.statusCode = 500;
@@ -34,15 +33,13 @@ exports.handler = (event, context, callback) => {
       });
       callback(null, response);
       return;
-    } else {
-      //TODO: 登録に成功した場合の処理を記述
-      response.body = JSON.stringify({
-        message: "登録成功しました",
-        id: body.id,
-        name: body.name,
-      })
-      callback(null, response);
-      return;
     }
+    
+    const user = data.Item;
+
+    //TODO: レスポンスボディの設定とコールバックを記述
+    response.body = JSON.stringify(user);
+    callback(null, response);
+    return;
   });
 };
