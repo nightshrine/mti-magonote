@@ -9,7 +9,20 @@
           <p>選択したLevel動画一覧(現在：Level{{ user.level }})</p>
           <a @click="switchPage('Mypage')">Level変更</a>
         </div>
-        {{ movies }}
+        <!-- <video src=“https://www.youtube.com/embed/24Cw4i-LVog”></video> -->
+        <div>
+          <template v-for="movie in movies">
+            <div class="ui segment" :key="movie">
+              <h2 class="ui header">
+                <div class="content">
+                  {{ movie.url }}
+                  <div class="ui green label">{{ movie.level }}</div>
+                  <div class="sub header">{{ movie.text }}</div>
+                </div>
+              </h2>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +100,7 @@ export default {
         return;
       }
       this.$router.push({ name: pageName });
-    }
+    },
   },
 };
 </script>
