@@ -2,13 +2,13 @@
   <div class="login-body">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
-        <h2 class="ui teal image header">
-          <div class="content">
-            Log-in to your account
-          </div>
-        </h2>
         <form class="ui large form" @submit.prevent="submit">
           <div class="ui stacked segment">
+            <h2 class="ui teal image header">
+              <div class="content">
+                <img src ="../../public/magonote-logo.svg" alt="SVG"/>
+              </div>
+            </h2>
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
@@ -18,10 +18,10 @@
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" v-model="user.password">
+                <input type="password" name="password" placeholder="パスワード" v-model="user.password">
               </div>
             </div>
-            <button class="ui fluid large teal submit button" type="submit">Login</button>
+            <button class="ui fluid large submit button" type="submit">ログイン</button>
           </div>
 
           <div class="ui error message"></div>
@@ -29,7 +29,7 @@
         </form>
 
         <div class="ui message">
-          New to us? <a @click=toSignup()>Sign Up</a>
+          初めての方はこちら <a @click=toSignup()>新規登録</a>
         </div>
       </div>
     </div>
@@ -98,11 +98,36 @@ export default {
 /* このコンポーネントだけに適用するCSSは */
 /* ここに記述する */
 
+.login-body {
+  background-color: #3CB371;
+  height: 100vh;
+}
+
+.button {
+  background-color: #3CB371;
+  box-shadow: 0 0 0 0 rgb(34 36 38 / 15%) inset;
+  color: #FFF;
+  text-shadow: none;
+  background-image: none;
+}
+
+.button:hover {
+  background-color: #33a667;
+  color: #FFF;
+  text-shadow: none;
+}
+
+.button:focus {
+  background-color: #289f5e;
+  color: #FFF;
+  text-shadow: none;
+}
+
 .column {
   max-width: 400px;
   display: inline-block;
   vertical-align: middle;
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 a{

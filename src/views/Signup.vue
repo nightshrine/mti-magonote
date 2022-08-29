@@ -2,13 +2,13 @@
   <div class="login-body">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
-        <h2 class="ui teal image header">
-          <div class="content">
-            Sign-up to our service
-          </div>
-        </h2>
         <form class="ui large form" @submit.prevent="submit">
           <div class="ui stacked segment">
+            <h2 class="ui teal image header">
+              <div class="content">
+                <img src ="../../public/magonote-logo.svg" alt="SVG"/>
+              </div>
+            </h2>
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
@@ -18,19 +18,19 @@
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                <input type="text" name="name" placeholder="username" v-model="user.name">
+                <input type="text" name="name" placeholder="ユーザー名" v-model="user.name">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" v-model="user.password">
+                <input type="password" name="password" placeholder="パスワード" v-model="user.password">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" v-model="user.confirm_password">
+                <input type="password" name="confirm_password" placeholder="パスワードの確認" v-model="user.confirm_password">
               </div>
             </div>
             <button class="ui fluid large submit button" type="submit">新規登録</button>
@@ -142,7 +142,7 @@ export default {
   max-width: 400px;
   display: inline-block;
   vertical-align: middle;
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 a {
