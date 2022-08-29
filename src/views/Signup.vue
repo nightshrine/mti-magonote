@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="login-body">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
-        <h2 class="ui teal image header">
-          <div class="content">
-            Sign-up to our service
-          </div>
-        </h2>
         <form class="ui large form" @submit.prevent="submit">
           <div class="ui stacked segment">
+            <h2 class="ui teal image header">
+              <div class="content">
+                <img src ="../../public/magonote-logo.svg" alt="SVG"/>
+              </div>
+            </h2>
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
@@ -18,22 +18,22 @@
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                <input type="text" name="name" placeholder="username" v-model="user.name">
+                <input type="text" name="name" placeholder="ユーザー名" v-model="user.name">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" v-model="user.password">
+                <input type="password" name="password" placeholder="パスワード" v-model="user.password">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" v-model="user.confirm_password">
+                <input type="password" name="confirm_password" placeholder="パスワードの確認" v-model="user.confirm_password">
               </div>
             </div>
-            <button class="ui fluid large teal submit button" type="submit">Sign Up</button>
+            <button class="ui fluid large submit button" type="submit">新規登録</button>
           </div>
 
           <div class="ui error message"></div>
@@ -41,7 +41,7 @@
         </form>
 
         <div class="ui message">
-          Already have an account? <a @click="toLogin()">Login</a>
+          既にアカウントをお持ちですか? <a @click="toLogin()">ログイン</a>
         </div>
       </div>
     </div>
@@ -113,11 +113,36 @@ export default {
 /* このコンポーネントだけに適用するCSSは */
 /* ここに記述する */
 
+.login-body {
+  background-color: #3CB371;
+  height: 100vh;
+}
+
+.button {
+  background-color: #3CB371;
+  box-shadow: 0 0 0 0 rgb(34 36 38 / 15%) inset;
+  color: #FFF;
+  text-shadow: none;
+  background-image: none;
+}
+
+.button:hover {
+  background-color: #33a667;
+  color: #FFF;
+  text-shadow: none;
+}
+
+.button:focus {
+  background-color: #289f5e;
+  color: #FFF;
+  text-shadow: none;
+}
+
 .column {
   max-width: 400px;
   display: inline-block;
   vertical-align: middle;
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 a {
