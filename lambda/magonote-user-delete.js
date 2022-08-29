@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
-const tableName = "magnote_users";
+const tableName = "magonote_users";
 
 exports.handler = (event, context, callback) => {
   const response = {
