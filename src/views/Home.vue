@@ -82,7 +82,8 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-    if (this.user.level != null) {
+      console.log(this.user);
+    if (this.user.level == 1 || this.user.level == 2 || this.user.level == 3) {
       let result = this.movies.filter(
         (movie) => movie.level == this.user.level
       );

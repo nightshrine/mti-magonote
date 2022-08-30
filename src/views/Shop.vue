@@ -85,17 +85,24 @@ export default {
         this.user.height = res.data.height;
         this.user.weight = res.data.weight;
         this.user.level = res.data.level;
-        this.user.point = res.data.point;
       })
       .catch(err => {
         console.log(err);
       })
-    if(this.user.point == null){
-      this.user.point = 0;
-    }
     await axios.get(baseUrl + "/products")
       .then(res => {
         this.products = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    await axios.get(baseUrl + "/records")
+      .then(res => {
+        let records = res.data;
+        let results = records.filter(record => {
+          return record.id == this.user.id;
+        });
+        this.user.point = results.length;
       })
       .catch(err => {
         console.log(err);
